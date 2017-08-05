@@ -1,7 +1,0 @@
-#gofmt.plugin
-[Plugin]
-Name=gofmt
-Loader=python3
-Module=gofmt
-Author=Justyn Temme
-
