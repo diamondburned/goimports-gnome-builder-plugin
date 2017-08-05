@@ -40,6 +40,8 @@ class MyAppaddin(GObject.Object, Ide.WorkbenchAddin):
         text = buffer.get_text(begin, end, True)
 
         #Write the buffer to the gofmt process
+        if text == '':
+            return
         ret, stdout, stderr = subprocess.communicate_utf8(text, None)
 
         # Write the new contents to the buffer
