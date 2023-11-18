@@ -1,0 +1,7 @@
+#gofmt.plugin
+[Plugin]
+Name=goimports
+Loader=python3
+Module=goimports
+Author=diamondburned
+

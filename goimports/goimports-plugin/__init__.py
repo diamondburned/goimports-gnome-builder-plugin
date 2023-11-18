@@ -7,14 +7,14 @@ from gi.repository import Gio
 
 class MyAppaddin(GObject.Object, Ide.GoFmtWorkbenchAddin):
     def do_load(self, workbench):
-        self.gofmt_enable = prefs.add_switch(
-            "go-fmt",
+        self.goimports_enable = prefs.add_switch(
+            "go-imports",
             "on-save" "org.gnome.builder.extension-type",
             "disabled",
             "/",
             None,
-            _("Gofmt on save"),
-            _("Use gofmt to format Go-lang Code"),
+            _("Goimports on save"),
+            _("Use goimports to format Go-lang Code"),
             None,
             30,
         )
@@ -23,7 +23,7 @@ class MyAppaddin(GObject.Object, Ide.GoFmtWorkbenchAddin):
         self.handler = bufmgr.connect("save-buffer", self.on_save_buffer)
 
     def do_unload(self, workbench):
-        workbench.remove_id(gofmt_enable)
+        workbench.remove_id(goimports_enable)
         context = workbench.get_context()
         bufmgr = context.get_buffer_manager()
         bufmgr.disconnect(self.handler)
@@ -39,7 +39,7 @@ class MyAppaddin(GObject.Object, Ide.GoFmtWorkbenchAddin):
         )
 
         # setup our cmdline arguments
-        launcher.push_argv("gofmt")
+        launcher.push_argv("goimports")
         launcher.set_run_on_host(True)
 
         # launch the process
@@ -48,11 +48,10 @@ class MyAppaddin(GObject.Object, Ide.GoFmtWorkbenchAddin):
         begin, end = buffer.get_bounds()
         text = buffer.get_text(begin, end, True)
 
-        # Write the buffer to the gofmt process
+        # Write the buffer to the goimports process
         if text == "":
             return
         ret, stdout, stderr = subprocess.communicate_utf8(text, None)
 
         # Write the new contents to the buffer
         buffer.set_text(stdout, len(stdout))
-        print("Gofmt complete")

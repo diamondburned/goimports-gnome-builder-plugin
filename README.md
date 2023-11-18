@@ -1,2 +1,2 @@
-# gofmt-gnome-builder-plugin
-Gofmt plugin for Gnome-builder to run Gofmt on save
+# goimports-gnome-builder-plugin
+Goimports plugin for Gnome-builder to run Goimports on save
